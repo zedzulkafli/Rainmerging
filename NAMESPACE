@@ -1,0 +1,7 @@
+import(gstat)
+import(rgdal)
+import(sp)
+import(automap)
+import(zoo)
+import(hydroGOF)
+exportPattern("^[[:alpha:]]+")
