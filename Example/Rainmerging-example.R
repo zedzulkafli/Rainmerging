@@ -55,7 +55,7 @@ coordinates(map) 	<- coordinates(sat[[2]])
 map 			<- as(map,"SpatialPixelsDataFrame")
 
 bitmap(file="CompareAvg.png", res=300)
-spplot(map)
+spplot(map,at = seq(0,120,5))
 dev.off()
 
 #######################################################################################
@@ -98,13 +98,11 @@ summary(scores[["rmse"]])
 summary(scores[["r"]])
 summary(scores[["nse"]])
 
-map 			<- scores[["me"]]
+map 			<- scores[["me"]]; names(map) <- names(results_CV)
 coordinates(map) 	<- coordinates(gauge[[2]])
-map 			<- as(map,"SpatialPixelsDataFrame")
 
 bitmap(file="me_scores.png", res=300)
-trellis.par.set(sp.theme())
-spplot(map)
+spplot(map, cuts=c(-50,-25,-10,-5,5,10,25,50))
 dev.off()
 
 #######################################################################################

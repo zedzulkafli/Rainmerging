@@ -2,17 +2,17 @@ Package: Rainmerging
 Type: Package
 Title: Merging functions for satellite and rain gauge time series  
 Version: 1.0
-Date: 2014-07-02
+Date: 2015-04-04
 Author: Zed Zulkafli, Daniele Nerini, Bastian Manz
 Maintainer: Zed Zulkafli <zedzulkafli.dev@gmail.com>
 Description: Various non-parametric and geostatistical methods for combining 
     pixel (satellite, radar, etc) and point (rain gauge) precipitation. 
-    Please cite reference:
-    Nerini, D, et al (in review) A comparative analysis of TRMM-rain gauge data 
+    Methods detailed in:
+    Nerini, D, et al (2015) A comparative analysis of TRMM-rain gauge data 
     merging techniques at the daily time scale for distributed rainfall-runoff 
     modeling applications, Journal of Hydrometeorology
 Depends:
-    R (>= 3.0.2),
+    R (>= 3.1.3),
     zoo,
     gstat,
     automap,
