@@ -6,9 +6,9 @@
 #' using Ordinary Kriging at every time step
 #'
 #' @param gauge is a list: 
-#' gauge[["points"]] is a data.frame with dimensions nrow=no of stations, 
+#' gauge[[2]] is a data.frame with dimensions nrow=no of stations, 
 #' containing columns x=x-coordinates, y=y-coordinates 
-#' gauge[["ts"]] is a zoo object with dimensions ncol=no of stations, 
+#' gauge[[1]] is a zoo object with dimensions ncol=no of stations, 
 #' nrow=no of timestep
 #' @param coords is a data.frame with dimensions nrow=no of target grid pixels, 
 #' containing columns x=x-coordinates, y=y-coordinates

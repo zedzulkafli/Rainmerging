@@ -6,9 +6,9 @@
 #' the nearest-neighbour interpolation
 #'
 #' @param sat is a list
-#' sat[["pixels"]] is a data.frame with dimensions nrow=no of satellite
-#' pixels, containing columns x=x-coordinates, y=y-coordinates
-#' sat  [["ts"]] is a zoo object with dimensions ncol=no of satellite 
+#' sat[[2]] is a data.frame with dimensions nrow=no of satellite
+#' pixels, containing columns x=x-coordinates, y=y-coordinates, ID=pixel ID
+#' sat  [[1]] is a zoo object with dimensions ncol=no of satellite 
 #' pixels, nrow=no of timestep
 #' @param coords is a data.frame with dimensions nrow=no of target grid pixels, 
 #' containing columns x=x-coordinates, y=y-coordinates

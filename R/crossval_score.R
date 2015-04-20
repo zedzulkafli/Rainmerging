@@ -6,9 +6,9 @@
 #' for the cross-validation output for comparison between the methods
 #'
 #' @param gauge is a list: 
-#' gauge[["points"]] is a data.frame with dimensions nrow=no of stations, 
+#' gauge[[2]] is a data.frame with dimensions nrow=no of stations, 
 #' containing columns x=x-coordinates, y=y-coordinates 
-#' gauge[["ts"]] is a zoo object with dimensions ncol=no of stations, 
+#' gauge[[1]] is a zoo object with dimensions ncol=no of stations, 
 #' nrow=no of timestep
 #' @param results_CV is a list of the output from one or multiple merging functions run in cross-validation mode
 #'
@@ -40,8 +40,8 @@ obs 		    <- gauge[[1]][,j]
 subscore[j,i,1]     <- me(sim,obs,na.rm=TRUE)
 subscore[j,i,2]     <- mae(sim,obs,na.rm=TRUE)
 subscore[j,i,4]     <- rmse(sim,obs,na.rm=TRUE)
-subscore[j,i,3]     <- cor(sim,obs,"pairwise.complete.obs")
-subscore[j,i,5]     <- NSE(sim,obs,na.rm=TRUE)
+if (length(sim)> 1) subscore[j,i,3]     <- cor(sim,obs,"pairwise.complete.obs")
+if (length(sim)> 1) subscore[j,i,5]     <- NSE(sim,obs,na.rm=TRUE)
 }
 }
 
@@ -49,7 +49,7 @@ subscore[j,i,5]     <- NSE(sim,obs,na.rm=TRUE)
 scores <- list()
 for(o in 1:length(scorelist)) {
 tmp 	    <- data.frame(subscore [,,o])
-#names(tmp)  <- names(results_CV)
+names(tmp)  <- names(results_CV)
 scores [[o]]    <- tmp
 }
 

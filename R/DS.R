@@ -12,14 +12,14 @@
 #' Chapman and Hall/CRC.
 #'
 #' @param gauge is a list: 
-#' gauge[["points"]] is a data.frame with dimensions nrow=no of stations, 
+#' gauge[[2]] is a data.frame with dimensions nrow=no of stations, 
 #' containing columns x=x-coordinates, y=y-coordinates 
-#' gauge[["ts"]] is a zoo object with dimensions ncol=no of stations, 
+#' gauge[[1]] is a zoo object with dimensions ncol=no of stations, 
 #' nrow=no of timestep
 #' @param sat is a list
-#' sat[["pixels"]] is a data.frame with dimensions nrow=no of satellite
+#' sat[[2]] is a data.frame with dimensions nrow=no of satellite
 #' pixels, containing columns x=x-coordinates, y=y-coordinates
-#' sat  [["ts"]] is a zoo object with dimensions ncol=no of satellite 
+#' sat  [[1]] is a zoo object with dimensions ncol=no of satellite 
 #' pixels, nrow=no of timestep
 #' @param cross.val option TRUE=in cross validation mode; default FALSE 
 #' @param longlat is a flag to describe the coordinate grids of spatial data. 
@@ -57,9 +57,6 @@ for (i in 1:length(Gdata)) loc[i] <- which.min(spDists(Tdata,Gdata[i,]
 # subset Zs 
 Zs_sub <- Zs[,loc]
 
-# remove pixel-point pairs with NA values
-Zs_sub[is.na(Zg)] <- NA
-
 # get point residuals
 res <- Zs_sub - Zg
 
@@ -86,14 +83,7 @@ K2 <- kerf((distpseud),b2);
 K1 <- t(K1)
 K1 <- rep(K1,nrow(res)); dim(K1) <- c(dim(t(distres)),nrow(res))
 
-# reset Kernel weights to zero when res is NA
-for(t in 1:nrow(res)){
-out <- which(is.na(res[t,]))
-K1 [,out,t] <- 0
-}
-
-res[which(is.na(res))] <- 0
-
+# interpolate residuals
 eDS <- eSS <- matrix(ncol=nrow(Tdata), nrow=nrow(res))
 
 for (t in 1:nrow(res)){
@@ -134,9 +124,6 @@ for (i in 1:length(Gdata[-q,])) loc[i] <- which.min(spDists(Tdata,Gdata[i,]
 # subset Zs 
 Zs_sub <- Zs[,loc]
 
-# remove pixel-point pairs with NA values
-Zs_sub[is.na(Zg[,-q])] <- NA
-
 # get point residuals
 res <- Zs_sub - Zg[,-q]
 
@@ -162,14 +149,7 @@ K2 <- kerf((distpseud),b2);
 K1 <- t(K1)
 K1 <- rep(K1,nrow(res)); dim(K1) <- c(dim(t(distres)),nrow(res))
 
-# reset Kernel weights to zero when res is NA
-for(t in 1:nrow(res)){
-out <- which(is.na(res[t,]))
-K1 [,out,t] <- 0
-}
-
-res[which(is.na(res))] <- 0
-
+# Interpolate residuals
 eSS <- matrix(ncol=nrow(Tdata), nrow=nrow(res))
 eDS <- numeric()
 
