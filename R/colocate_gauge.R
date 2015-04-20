@@ -6,18 +6,18 @@
 #' nearest center cell of a target interpolation grid
 #'
 #' @param gauge is a list: 
-#' gauge[["points"]] is a data.frame with dimensions nrow=no of stations, 
+#' gauge[[2]] is a data.frame with dimensions nrow=no of stations, 
 #' containing columns x=x-coordinates, y=y-coordinates 
-#' gauge[["ts"]] is a zoo object with dimensions ncol=no of stations, 
+#' gauge[[1]] is a zoo object with dimensions ncol=no of stations, 
 #' nrow=no of timestep
-#' @param coords is sat  [["pixels"]] is a data.frame with dimensions nrow=no of
+#' @param coords is sat  [[2]] is a data.frame with dimensions nrow=no of
 #' satellite pixels, containing columns x=x-coordinates, y=y-coordinates
 #' @param longlat is a flag for geospatial projection
 #'
 #' @return gauge see param description
 #'
 #' @examples
-#' # gauge <- colocage.gauge(gauge, sat[["pixels"]], longlat=TRUE)
+#' # gauge <- colocage.gauge(gauge, sat[[2]], longlat=TRUE)
 #'
 
 colocate.gauge <- function(gauge, coords, longlat=TRUE){

@@ -9,15 +9,15 @@
 #' Hydrology and Earth System Sciences, 5(2):187-199. 
 #' PROGEA Srl (2009). RAINMUSIC, User manual & references. PROGEA Srl, Bologna.
 #'
-#' @param gauge is a list: 
-#' gauge[["points"]] is a data.frame with dimensions nrow=no of stations, 
+#' #' @param gauge is a list: 
+#' gauge[[2]] is a data.frame with dimensions nrow=no of stations, 
 #' containing columns x=x-coordinates, y=y-coordinates 
-#' gauge[["ts"]] is a zoo object with dimensions ncol=no of stations, 
+#' gauge[[1]] is a zoo object with dimensions ncol=no of stations, 
 #' nrow=no of timestep
 #' @param sat is a list
-#' sat[["pixels"]] is a data.frame with dimensions nrow=no of satellite
+#' sat[[2]] is a data.frame with dimensions nrow=no of satellite
 #' pixels, containing columns x=x-coordinates, y=y-coordinates
-#' sat  [["ts"]] is a zoo object with dimensions ncol=no of satellite 
+#' sat  [[1]] is a zoo object with dimensions ncol=no of satellite 
 #' pixels, nrow=no of timestep
 #' @param cross.val option TRUE=in cross validation mode; default FALSE 
 #' @param longlat is a flag to describe the coordinate grids of spatial data. 
@@ -78,7 +78,7 @@ for (i in 1:length(gaugename)){
                                   model = c("Sph", "Exp", "Gau"))
 
 # Perform Kriging 
-  maps[[i]] <- krige(formula, locations=data_sub, newdata=sat[["pixels"]], 
+  maps[[i]] <- krige(formula, locations=data_sub, newdata=sat[[2]], 
                      model = vm.fit[[i]]$var_model)
 	
 }
@@ -197,7 +197,7 @@ for (i in 1:length(gaugename)){
                                         model = c("Sph", "Exp", "Gau"))
 
 # Perform Kriging 
-      	maps[[i]] <- krige(formula, locations=data_sub, newdata=sat[["pixels"]],
+      	maps[[i]] <- krige(formula, locations=data_sub, newdata=sat[[2]],
                            model = vm.fit[[i]]$var_model, debug.level=FALSE)
 	
 }

@@ -4,8 +4,8 @@ load("sat.rda")
 load("gauge.rda")
 
 # define interpolation grid  
-coords 	<- sat[["pixels"]] # this is default case where
-		# interpolation grid == satellite grid. otherwise define coords. 
+coords 	<- sat[[2]] # this is default case where
+# interpolation grid == satellite grid. otherwise define coords. 
 
 # regrid satellite data onto interpolation grids
 sat   	<- NN.interp(sat,coords) #uncomment if interp grid != satellite grid
@@ -45,7 +45,7 @@ names(results) <- list("SAT","MBC","DS", "OK", "KED", "BC")
 
 #######################################################################################
 
-#select either mean or single timestep
+# calculate and plot mean
 
 fun 			<- function(ts) { return(apply(ts, 2, mean))}
 map  			<- sapply(results , fun)
@@ -55,7 +55,7 @@ coordinates(map) 	<- coordinates(sat[[2]])
 map 			<- as(map,"SpatialPixelsDataFrame")
 
 bitmap(file="CompareAvg.png", res=300)
-spplot(map,at = seq(0,120,5))
+spplot(map, at = seq(0,225,10))
 dev.off()
 
 #######################################################################################
@@ -82,27 +82,22 @@ BC_cv  	<- BC (sat,gauge,cross.val=TRUE)
 
 # Satellite product
 loc <- numeric()
-for (i in 1:length(gauge[[2]][,])) loc[i] <- which.min(spDists(sat[[2]],gauge[[2]][i,] ,longlat=TRUE))
+for (i in 1:length(gauge[[2]][,])) loc[i] <- which.min(spDists(sat[[2]],
+                                                               gauge[[2]][i,] ,longlat=TRUE))
 SAT_cv <- sat[[1]][,loc]
 
 # save results
-results_CV 	<- list(SAT_cv, MBC_cv, DS_cv, OK_cv, KED_cv, BC_cv)
+results_CV   <- list(SAT_cv, MBC_cv, DS_cv, OK_cv, KED_cv, BC_cv)
 names(results_CV) <- list("SAT","MBC","DS", "OK", "KED", "BC")
 
 # calculate and compare scores
 scores <- crossval_score(results_CV,gauge)
 
-summary(scores[["me"]])
-summary(scores[["mae"]])
-summary(scores[["rmse"]])
-summary(scores[["r"]])
-summary(scores[["nse"]])
-
-map 			<- scores[["me"]]; names(map) <- names(results_CV)
+map 			<- scores[["me"]]
 coordinates(map) 	<- coordinates(gauge[[2]])
 
 bitmap(file="me_scores.png", res=300)
-spplot(map, cuts=c(-50,-25,-10,-5,5,10,25,50))
+spplot(map, cuts=c(-100,-25,-10,-5,5,10,25,100))
 dev.off()
 
 #######################################################################################
