@@ -118,7 +118,7 @@ setTxtProgressBar(pb, q/nrow(Gdata))
 
 # get location of Zg in Zs
 loc <- numeric()
-for (i in 1:length(Gdata[-q,])) loc[i] <- which.min(spDists(Tdata,Gdata[i,] 
+for (i in 1:length(Gdata[-q,])) loc[i] <- which.min(spDists(Tdata,Gdata[-q,][i,] 
                                                             ,longlat))
 
 # subset Zs 
