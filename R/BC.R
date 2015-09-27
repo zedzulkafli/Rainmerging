@@ -78,8 +78,9 @@ for (i in 1:length(gaugename)){
                                   model = c("Sph", "Exp", "Gau"))
 
 # Perform Kriging 
-  maps[[i]] <- krige(formula, locations=data_sub, newdata=sat[[2]], 
-                     model = vm.fit[[i]]$var_model)
+  maps[[i]] <-  krige0(formula, data=data_sub, newdata=sat[[2]],
+                       model= vm.fit[[i]]$var_model, computeVar=TRUE,
+                       fullCovariance = TRUE)
 	
 }
 
@@ -96,10 +97,8 @@ distances <- spDists(Tdata,Tdata,longlat)
 for (i in 1:length(gaugename)){
 
 #get Kriging output
-	G 	<- maps[[i]]$var1.pred 
-      
-	varG  <- variogramLine(object=vm.fit[[i]]$var_model, dist_vector=distances)
-	varG  <- vm.fit[[i]]$var_model[2,"psill"] - varG
+  G 	     <- maps[[i]][[1]] 
+  varG     <- maps[[i]][[2]]
   varG [varG < 0] <- 0
 
   S     <- Zs[i,]
@@ -197,9 +196,9 @@ for (i in 1:length(gaugename)){
                                         model = c("Sph", "Exp", "Gau"))
 
 # Perform Kriging 
-      	maps[[i]] <- krige(formula, locations=data_sub, newdata=sat[[2]],
-                           model = vm.fit[[i]]$var_model, debug.level=FALSE)
-	
+      	maps[[i]] <-  krige0(formula, data=data_sub, newdata=sat[[2]],
+      	                     model= vm.fit[[i]]$var_model, computeVar=TRUE,
+      	                     fullCovariance = TRUE)
 }
 
 
@@ -217,10 +216,8 @@ distances <- spDists(Tdata,Tdata,longlat)
 for (i in 1:length(gaugename)){
 
 #get Kriging output
-	G 	<- maps[[i]]$var1.pred 
-      
-	varG <- variogramLine(object=vm.fit[[i]]$var_model, dist_vector=distances)
-  varG <- vm.fit[[i]]$var_model[2,"psill"] - varG
+  G 	     <- maps[[i]][[1]] 
+  varG     <- maps[[i]][[2]]
   varG [varG < 0] <- 0
 
   S     <- Zs[i,]
