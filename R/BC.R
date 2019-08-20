@@ -104,7 +104,7 @@ for (i in 1:length(gaugename)){
   S     <- Zs[i,]
 
 # Calculate error
-	errS <- S - G; errS  <- data.frame(t(errS)); names(errS) <- "errS"
+	errS <- S - t(G); errS  <- data.frame(t(errS)); names(errS) <- "errS"
 	coordinates(errS) <- coordinates(Tdata)
 	proj4string(errS) <- proj4string(Tdata)
 
