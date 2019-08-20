@@ -36,7 +36,7 @@ gaugename  <- names(Zg)
 #Zg <- log(Zg +0.01)
 
 ## merge maps
-data <- cbind(Gdata, Zg)
+data <- cbind(data.frame(Gdata), Zg)
 coordinates(data) <- ~coords.x1+coords.x2 
 proj4string(data) <- proj4string(Gdata)
 

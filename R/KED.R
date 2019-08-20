@@ -57,7 +57,7 @@ trendname<- names(Zs_trend)
 #Zg <- log(Zg +0.01)
 
 ## merge maps
-data  <- cbind(Gdata, Zg, Zs_trend)
+data  <- cbind(data.frame(Gdata), Zg, Zs_trend)
 
 coordinates(data) <- coordinates(Tdata[loc,]) 
 proj4string(data)     <- proj4string(Tdata)
